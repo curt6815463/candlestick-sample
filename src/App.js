@@ -1,7 +1,9 @@
-// import CandlestickChart from "./components/CandlestickChart";
+import CandlestickChart from "./components/CandlestickChart";
 function App() {
   return (
-    <div className="App">{/* <CandlestickChart></CandlestickChart> */}</div>
+    <div className="App">
+      <CandlestickChart></CandlestickChart>
+    </div>
   );
 }
 
