@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Candlesticks from "../utils/Candlesticks";
 import data from "../utils/Candlesticks/sampleData";
 
-const CandlestickChart = () => {
+const CandlesticksChart = ({ zoomRatio }) => {
   const canvasRef = useRef("");
   const candlesticksRef = useRef("");
 
@@ -24,8 +24,8 @@ const CandlestickChart = () => {
 
   useEffect(() => {
     if (!candlesticksRef.current) return;
-    candlesticksRef.current.zoom();
-  });
+    candlesticksRef.current.zoom(zoomRatio);
+  }, [zoomRatio]);
 
   return (
     <div>
@@ -34,4 +34,4 @@ const CandlestickChart = () => {
   );
 };
 
-export default CandlestickChart;
+export default CandlesticksChart;
