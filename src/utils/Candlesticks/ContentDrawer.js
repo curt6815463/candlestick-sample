@@ -1,6 +1,4 @@
 import CanvasUtilDrawer from "./CanvasUtilDrawer";
-import XAxisDrawer from "./XAxisDrawer";
-
 class ContentDrawer {
   constructor(options) {
     this.bullColor = options.bullColor;
@@ -10,11 +8,6 @@ class ContentDrawer {
     this.ctx = options.ctx;
     this.CanvasUtilDrawer = new CanvasUtilDrawer({
       ctx: options.ctx,
-    });
-    this.XAxisDrawer = new XAxisDrawer({
-      ctx: options.ctx,
-      canvas: options.canvas,
-      CanvasUtilDrawer: this.CanvasUtilDrawer,
     });
   }
 
@@ -38,11 +31,6 @@ class ContentDrawer {
     candleXGap,
     translateX,
   }) {
-    this.XAxisDrawer.setDrawInterval({
-      text: properties[0].time,
-      candleWidth,
-      candleXGap,
-    });
     const girdTotalDiff = gridMax - gridMin;
     properties.forEach((property, index) => {
       this.ctx.save();
@@ -94,12 +82,6 @@ class ContentDrawer {
         startY: wickStartY,
         endY: wickEndY,
         color: candleColor,
-      });
-
-      this.XAxisDrawer.draw({
-        startX: wickStartX,
-        time: property.time,
-        index,
       });
       this.ctx.restore();
     });

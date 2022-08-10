@@ -20,7 +20,7 @@ function App() {
   };
 
   const handleTranslateX = (delta) => {
-    setTranslateX(translateX + delta);
+    setTranslateX(Math.max(translateX + delta, 0));
   };
 
   return (
@@ -34,12 +34,11 @@ function App() {
           <button onClick={() => handleZoom(-0.1)}>Zoom out</button>
         </ButtonWrapper>
         <ButtonWrapper>
-          <button onClick={() => handleTranslateX(-50)}>Move Left</button>
+          <button onClick={() => handleTranslateX(50)}>Move Left</button>
         </ButtonWrapper>
         <ButtonWrapper>
-          <button onClick={() => handleTranslateX(50)}>Move Right</button>
+          <button onClick={() => handleTranslateX(-50)}>Move Right</button>
         </ButtonWrapper>
-        <span>wheel is available</span>
       </ToolBar>
       <CandlesticksChartWrapper>
         <CandlesticksChart

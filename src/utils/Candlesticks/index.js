@@ -1,4 +1,5 @@
 import YAxisDrawer from "./YAxisDrawer";
+import XAxisDrawer from "./XAxisDrawer";
 import ContentDrawer from "./ContentDrawer";
 
 class Candlesticks {
@@ -27,12 +28,17 @@ class Candlesticks {
 
     this.YAxisDrawer = new YAxisDrawer({
       canvas: this.canvas,
-      ctx: this.canvas.getContext("2d"),
+      ctx: this.ctx,
       heightPadding: options.heightPadding,
+    });
+    this.XAxisDrawer = new XAxisDrawer({
+      canvas: this.canvas,
+      ctx: this.ctx,
+      startDrawPosition: this.startDrawPosition,
     });
     this.ContentDrawer = new ContentDrawer({
       canvas: this.canvas,
-      ctx: this.canvas.getContext("2d"),
+      ctx: this.ctx,
       heightPadding: options.heightPadding,
       bullColor: options.bullColor,
       bearColor: options.bearColor,
@@ -124,6 +130,7 @@ class Candlesticks {
       translateX,
     };
     this.YAxisDrawer.draw(drawInfo);
+    this.XAxisDrawer.draw(drawInfo);
     this.ContentDrawer.draw(drawInfo);
   }
 }
