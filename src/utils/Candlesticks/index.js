@@ -1,5 +1,5 @@
 import YAxisDrawer from "./YAxisDrawer";
-import CandleDrawer from "./CandleDrawer";
+import ContentDrawer from "./ContentDrawer";
 
 class Candlesticks {
   constructor(options) {
@@ -28,7 +28,7 @@ class Candlesticks {
       ctx: this.canvas.getContext("2d"),
       heightPadding: options.heightPadding,
     });
-    this.CandleDrawer = new CandleDrawer({
+    this.ContentDrawer = new ContentDrawer({
       canvas: this.canvas,
       ctx: this.canvas.getContext("2d"),
       heightPadding: options.heightPadding,
@@ -113,7 +113,7 @@ class Candlesticks {
       candleXGap,
     };
     this.YAxisDrawer.draw(drawInfo);
-    this.CandleDrawer.draw(drawInfo);
+    this.ContentDrawer.draw(drawInfo);
   }
 }
 export default Candlesticks;

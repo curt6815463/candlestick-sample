@@ -1,4 +1,4 @@
-class CandleTimeDrawer {
+class XAxisDrawer {
   constructor(options) {
     this.canvas = options.canvas;
     this.ctx = options.ctx;
@@ -36,4 +36,4 @@ class CandleTimeDrawer {
     }
   }
 }
-export default CandleTimeDrawer;
+export default XAxisDrawer;

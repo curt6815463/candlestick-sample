@@ -1,7 +1,7 @@
 import CanvasUtilDrawer from "./CanvasUtilDrawer";
-import CandleTimeDrawer from "./CandleTimeDrawer";
+import XAxisDrawer from "./XAxisDrawer";
 
-class CandleDrawer {
+class ContentDrawer {
   constructor(options) {
     this.bullColor = options.bullColor;
     this.bearColor = options.bearColor;
@@ -11,7 +11,7 @@ class CandleDrawer {
     this.CanvasUtilDrawer = new CanvasUtilDrawer({
       ctx: options.ctx,
     });
-    this.CandleTimeDrawer = new CandleTimeDrawer({
+    this.XAxisDrawer = new XAxisDrawer({
       ctx: options.ctx,
       canvas: options.canvas,
       CanvasUtilDrawer: this.CanvasUtilDrawer,
@@ -28,7 +28,7 @@ class CandleDrawer {
     }
   }
 
-  drawCandle({
+  drawContent({
     properties,
     canvasActualHeight,
     gridMax,
@@ -36,7 +36,7 @@ class CandleDrawer {
     candleWidth,
     candleXGap,
   }) {
-    this.CandleTimeDrawer.setDrawInterval({
+    this.XAxisDrawer.setDrawInterval({
       text: properties[0].time,
       candleWidth,
       candleXGap,
@@ -88,7 +88,7 @@ class CandleDrawer {
         color: candleColor,
       });
 
-      this.CandleTimeDrawer.draw({
+      this.XAxisDrawer.draw({
         startX: wickStartX,
         time: property.time,
         index,
@@ -105,7 +105,7 @@ class CandleDrawer {
       candleWidth,
       candleXGap,
     } = drawInfo;
-    this.drawCandle({
+    this.drawContent({
       canvasActualHeight,
       gridMax,
       gridMin,
@@ -116,4 +116,4 @@ class CandleDrawer {
   }
 }
 
-export default CandleDrawer;
+export default ContentDrawer;
