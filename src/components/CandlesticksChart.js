@@ -59,11 +59,7 @@ const CandlesticksChart = ({
     height,
   ]);
 
-  return (
-    <div>
-      <canvas ref={canvasRef}></canvas>
-    </div>
-  );
+  return <canvas ref={canvasRef}></canvas>;
 };
 
 export default CandlesticksChart;
