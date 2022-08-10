@@ -70,44 +70,25 @@ let data = {
     volume: "65738585",
   },
 };
-
-let i = 0;
-while (i < 500) {
+// try add more fixed data
+for (let i = 0; i < 500; i++) {
+  const OHLC = {
+    open: "101.5100",
+    high: "101.5300",
+    low: "100.0700",
+    close: "100.1300",
+    volume: "65738585",
+  };
   if (i === 15) {
-    data = {
-      ...data,
-      [`2018-05-${i}`]: {
-        open: "101.5100",
-        high: "102.5300",
-        low: "70.0700",
-        close: "100.1300",
-        volume: "65738585",
-      },
-    };
-  } else if (i === 30) {
-    data = {
-      ...data,
-      [`2018-05-${i}`]: {
-        open: "101.5100",
-        high: "109.5300",
-        low: "100.0700",
-        close: "100.1300",
-        volume: "65738585",
-      },
-    };
-  } else {
-    data = {
-      ...data,
-      [`2018-05-${i}`]: {
-        open: "101.5100",
-        high: "101.5300",
-        low: "100.0700",
-        close: "100.1300",
-        volume: "65738585",
-      },
-    };
+    OHLC.low = "70";
   }
-  i++;
+  if (i === 30) {
+    OHLC.high = "110";
+  }
+  data = {
+    ...data,
+    [`2018-05-${i}`]: OHLC,
+  };
 }
 
 export default data;
