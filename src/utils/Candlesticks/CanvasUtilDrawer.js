@@ -1,6 +1,10 @@
 class CanvasUtilDrawer {
   constructor(options) {
+    if (CanvasUtilDrawer.instance instanceof CanvasUtilDrawer) {
+      return CanvasUtilDrawer.instance;
+    }
     this.ctx = options.ctx;
+    CanvasUtilDrawer.instance = this;
   }
 
   drawText({ text, x, y, textAlign = "left" }) {

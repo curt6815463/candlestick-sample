@@ -28,28 +28,28 @@ function App() {
 This util use Canvas to draw Candlestick. There are five class under this folder.
 
 1. index.js
-2. YAxisDrawer.js
-3. ContentDrawer.js
-4. CanvasUtilDrawer.js
-5. XAxisDrawer.js
+2. ContentDrawer.js
+3. XAxisDrawer.js
+4. YAxisDrawer.js
+5. CanvasUtilDrawer.js
 
-### index
+### 1. index
 
-Entry point of this Util. Responsible for managing the settings of chart. And calc the draw information for `YAxisDrawer` and `ContentDrawer` class
+Entry point of this Util. Responsible for managing the settings of chart. And calc the draw information for `XAxisDrawer`, `YAxisDrawer`, `ContentDrawer` class
 
-### ContentDrawer
+### 2. ContentDrawer
 
 Draw the candle and wick.
 
-### YAxisDrawer
+### 3. XAxisDrawer
 
 Draw the data of price on the Y-axis.
 
-### XAxisDrawer
+### 4. YAxisDrawer
 
 Draw the data of time on the X-axis.
 
-### CanvasUtilDrawer
+### 5. CanvasUtilDrawer
 
 Wrap Canvas api into some common function such as `drawLine`.
 
