@@ -9,6 +9,7 @@ const maxRatio = 1.25;
 
 function App() {
   const [zoomRatio, setZoomRatio] = useState(1);
+  const [scaleRatio, setScaleRatio] = useState(1);
   const [translateX, setTranslateX] = useState(0);
   const [translateY, setTranslateY] = useState(0);
 
@@ -26,6 +27,10 @@ function App() {
 
   const handleTranslateY = (delta) => {
     setTranslateY(translateY + delta);
+  };
+
+  const handleScaleRatio = (delta) => {
+    setScaleRatio(Math.max(scaleRatio + delta, 0.1));
   };
 
   return (
@@ -53,6 +58,7 @@ function App() {
       </ToolBar>
       <CandlesticksChartWrapper>
         <CandlesticksChart
+          scaleRatio={scaleRatio}
           translateX={translateX}
           translateY={translateY}
           bullColor={"orange"}
@@ -63,6 +69,10 @@ function App() {
           width={"700"}
           height={"350"}
         ></CandlesticksChart>
+        <ScaleRatioWrapper>
+          <button onClick={() => handleScaleRatio(0.1)}>🔼</button>
+          <button onClick={() => handleScaleRatio(-0.1)}>🔽</button>
+        </ScaleRatioWrapper>
       </CandlesticksChartWrapper>
     </Wrapper>
   );
@@ -85,11 +95,18 @@ const ButtonWrapper = styled.div`
   button {
     width: 100%;
     padding: 10px;
-    margin-bottom: 8px;
   }
+  margin-bottom: 8px;
+`;
+
+const ScaleRatioWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 const CandlesticksChartWrapper = styled.div`
+  display: flex;
   flex: 1;
   canvas {
     border: 1px solid #dbdbdb;

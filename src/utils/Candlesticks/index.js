@@ -20,6 +20,8 @@ class Candlesticks {
     this.zoomRatio = options.zoomRatio || 1;
     this.candleDefaultWidth = 16;
     this.candleDefaultXGap = 7;
+    this.scaleRatio = options.scaleRatio || 1;
+
     this.translateX = options.translateX || 0;
     this.translateY = options.translateY || 0;
     this.totalYAxisInterval = options.totalYAxisInterval;
@@ -48,6 +50,7 @@ class Candlesticks {
     bearColor,
     translateX,
     translateY,
+    scaleRatio,
   }) {
     this.timeSeries = data;
     this.properties = Object.entries(this.timeSeries).map(
@@ -64,6 +67,7 @@ class Candlesticks {
     this.bearColor = bearColor;
     this.translateX = translateX;
     this.translateY = translateY;
+    this.scaleRatio = scaleRatio;
     this.draw();
   }
 
@@ -146,10 +150,11 @@ class Candlesticks {
     const gridMax = max + scale / 2;
     const gridMin = gridMax - scale * totalYAxisInterval;
 
+    const gridScaleDelta = (gridMax - gridMin) * (1 - this.scaleRatio);
     const drawInfo = {
-      scale,
-      gridMax,
-      gridMin,
+      scale: scale * this.scaleRatio,
+      gridMax: gridMax - gridScaleDelta / 2,
+      gridMin: gridMin + gridScaleDelta / 2,
       totalYAxisInterval,
       canvasActualHeight,
       canvasActualWidth,
