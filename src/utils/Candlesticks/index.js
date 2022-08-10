@@ -15,7 +15,7 @@ class Candlesticks {
       }
     );
     this.heightPadding = options.heightPadding;
-
+    this.zoomRatio = options.zoomRatio || 1;
     this.candleDefaultWidth = 16;
     this.candleDefaultXGap = 7;
 
@@ -38,12 +38,33 @@ class Candlesticks {
     });
   }
 
-  zoom(zoomRatio) {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    const ratio = Math.max(zoomRatio, 0.1);
-    const candleWidth = this.candleDefaultWidth * ratio;
-    const candleXGap = this.candleDefaultXGap * ratio;
-    this.draw({ candleWidth, candleXGap });
+  updateData(data) {
+    this.timeSeries = data;
+    this.properties = Object.entries(this.timeSeries).map(
+      ([time, property]) => {
+        return {
+          time,
+          ...property,
+        };
+      }
+    );
+    this.draw();
+  }
+
+  updateZoomRatio(zoomRatio) {
+    this.zoomRatio = Math.max(zoomRatio, 0.1);
+    this.draw();
+  }
+
+  updateTotalAxisInterval(interval) {
+    this.totalAxisInterval = interval;
+    this.draw();
+  }
+
+  updateCandleColor({ bullColor, bearColor }) {
+    this.bullColor = bullColor;
+    this.bearColor = bearColor;
+    this.draw();
   }
 
   arrayOfAllPrices(inChartProperties) {
@@ -62,50 +83,37 @@ class Candlesticks {
     });
   }
 
-  draw({ candleWidth, candleXGap } = {}) {
+  draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    const candleWidth = this.candleDefaultWidth * this.zoomRatio;
+    const candleXGap = this.candleDefaultXGap * this.zoomRatio;
+    const totalAxisInterval = this.totalAxisInterval;
+    const properties = this.properties;
     const inChartProperties = this.getInChartProperties({
-      candleWidth: candleWidth || this.candleDefaultWidth,
-      candleXGap: candleXGap || this.candleDefaultXGap,
+      candleWidth,
+      candleXGap,
     });
     const allPrices = this.arrayOfAllPrices(inChartProperties);
     const max = Math.max(...allPrices);
     const min = Math.min(...allPrices);
 
-    const scale = (max - min) / (this.totalAxisInterval - 1);
+    const scale = (max - min) / (totalAxisInterval - 1);
     const gridMax = max + scale / 2;
-    const gridMin = gridMax - scale * this.totalAxisInterval;
+    const gridMin = gridMax - scale * totalAxisInterval;
     const canvasActualHeight = this.canvas.height - this.heightPadding * 2;
 
     const drawInfo = {
       scale,
       gridMax,
       gridMin,
-      totalAxisInterval: this.totalAxisInterval,
+      totalAxisInterval,
       canvasActualHeight,
-      properties: this.properties,
-      candleWidth: candleWidth || this.candleDefaultWidth,
-      candleXGap: candleXGap || this.candleDefaultXGap,
+      properties,
+      candleWidth,
+      candleXGap,
     };
     this.YAxisDrawer.draw(drawInfo);
     this.CandleDrawer.draw(drawInfo);
   }
 }
 export default Candlesticks;
-// const canvas = document.getElementById("stockChart");
-// canvas.width = 700;
-// canvas.height = 350;
-
-// let myCandlesticks = new Candlesticks({
-//   canvas,
-//   data,
-//   heightPadding: 50,
-//   totalAxisInterval: 4,
-//   bullColor: "red",
-//   bearColor: "green",
-// });
-
-// myCandlesticks.draw();
-
-// window.addEventListener("wheel", (event) => {
-//   myCandlesticks.zoom(event.deltaY);
-// });
