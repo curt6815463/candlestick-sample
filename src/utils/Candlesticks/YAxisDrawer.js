@@ -8,11 +8,11 @@ class YAxisDrawer {
     });
   }
 
-  drawGrid({ totalAxisInterval, canvasActualHeight, gridMax, scale }) {
+  drawGrid({ totalYAxisInterval, canvasActualHeight, gridMax, scale }) {
     let currentAxisInterval = 0;
-    while (currentAxisInterval <= totalAxisInterval) {
+    while (currentAxisInterval <= totalYAxisInterval) {
       const gridYPosition =
-        canvasActualHeight * (currentAxisInterval / totalAxisInterval) +
+        canvasActualHeight * (currentAxisInterval / totalYAxisInterval) +
         this.heightPadding;
       this.CanvasUtilDrawer.drawLine({
         startX: 0,
@@ -34,9 +34,9 @@ class YAxisDrawer {
   }
 
   draw(drawInfo) {
-    const { scale, gridMax, totalAxisInterval, canvasActualHeight } = drawInfo;
+    const { scale, gridMax, totalYAxisInterval, canvasActualHeight } = drawInfo;
     this.drawGrid({
-      totalAxisInterval,
+      totalYAxisInterval,
       canvasActualHeight,
       gridMax,
       scale,

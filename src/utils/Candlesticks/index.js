@@ -19,7 +19,7 @@ class Candlesticks {
     this.candleDefaultWidth = 16;
     this.candleDefaultXGap = 7;
 
-    this.totalAxisInterval = options.totalAxisInterval;
+    this.totalYAxisInterval = options.totalYAxisInterval;
 
     this.startDrawPosition = this.canvas.width * 0.8;
 
@@ -56,8 +56,8 @@ class Candlesticks {
     this.draw();
   }
 
-  updateTotalAxisInterval(interval) {
-    this.totalAxisInterval = interval;
+  updateTotalYAxisInterval(interval) {
+    this.totalYAxisInterval = interval;
     this.draw();
   }
 
@@ -87,7 +87,7 @@ class Candlesticks {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     const candleWidth = this.candleDefaultWidth * this.zoomRatio;
     const candleXGap = this.candleDefaultXGap * this.zoomRatio;
-    const totalAxisInterval = this.totalAxisInterval;
+    const totalYAxisInterval = this.totalYAxisInterval;
     const properties = this.properties;
     const inChartProperties = this.getInChartProperties({
       candleWidth,
@@ -97,16 +97,16 @@ class Candlesticks {
     const max = Math.max(...allPrices);
     const min = Math.min(...allPrices);
 
-    const scale = (max - min) / (totalAxisInterval - 1);
+    const scale = (max - min) / (totalYAxisInterval - 1);
     const gridMax = max + scale / 2;
-    const gridMin = gridMax - scale * totalAxisInterval;
+    const gridMin = gridMax - scale * totalYAxisInterval;
     const canvasActualHeight = this.canvas.height - this.heightPadding * 2;
 
     const drawInfo = {
       scale,
       gridMax,
       gridMin,
-      totalAxisInterval,
+      totalYAxisInterval,
       canvasActualHeight,
       properties,
       candleWidth,

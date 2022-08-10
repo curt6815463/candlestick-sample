@@ -4,7 +4,7 @@ import Candlesticks from "../utils/Candlesticks";
 const CandlesticksChart = ({
   zoomRatio,
   data,
-  totalAxisInterval = 4,
+  totalYAxisInterval = 4,
   bullColor,
   bearColor,
   width,
@@ -25,8 +25,8 @@ const CandlesticksChart = ({
 
   useEffect(() => {
     if (!candlesticksRef.current) return;
-    candlesticksRef.current.updateTotalAxisInterval(totalAxisInterval);
-  }, [totalAxisInterval]);
+    candlesticksRef.current.updateTotalYAxisInterval(totalYAxisInterval);
+  }, [totalYAxisInterval]);
 
   useEffect(() => {
     if (!candlesticksRef.current) return;
@@ -44,12 +44,20 @@ const CandlesticksChart = ({
       zoomRatio,
       data,
       heightPadding: 50,
-      totalAxisInterval,
+      totalYAxisInterval,
       bullColor,
       bearColor,
     });
     candlesticksRef.current.draw();
-  }, [data, totalAxisInterval, zoomRatio, bullColor, bearColor, width, height]);
+  }, [
+    data,
+    totalYAxisInterval,
+    zoomRatio,
+    bullColor,
+    bearColor,
+    width,
+    height,
+  ]);
 
   return (
     <div>

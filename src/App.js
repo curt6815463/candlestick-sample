@@ -23,7 +23,7 @@ function App() {
         bearColor={"blue"}
         data={chartData}
         zoomRatio={zoomRatio}
-        totalAxisInterval={10}
+        totalYAxisInterval={10}
         width={"700"}
         height={"350"}
       ></CandlesticksChart>
