@@ -71,45 +71,6 @@ class Candlesticks {
     this.draw();
   }
 
-  updateData(data) {
-    this.timeSeries = data;
-    this.properties = Object.entries(this.timeSeries).map(
-      ([time, property]) => {
-        return {
-          time,
-          ...property,
-        };
-      }
-    );
-    this.draw();
-  }
-
-  updateZoomRatio(zoomRatio) {
-    this.zoomRatio = Math.max(zoomRatio, 0.1);
-    this.draw();
-  }
-
-  updateTotalYAxisInterval(interval) {
-    this.totalYAxisInterval = interval;
-    this.draw();
-  }
-
-  updateCandleColor({ bullColor, bearColor }) {
-    this.bullColor = bullColor;
-    this.bearColor = bearColor;
-    this.draw();
-  }
-
-  updateTranslateX(translateX) {
-    this.translateX = translateX;
-    this.draw();
-  }
-
-  updateTranslateY(translateY) {
-    this.translateY = translateY;
-    this.draw();
-  }
-
   arrayOfAllPrices(inChartProperties) {
     return inChartProperties.reduce((result, property) => {
       const { open, high, low, close } = property;
