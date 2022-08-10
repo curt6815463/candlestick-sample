@@ -11,11 +11,20 @@ class YAxisDrawer {
     totalYAxisInterval,
     canvasActualHeight,
     gridMax,
+    gridMin,
     scale,
     heightPadding,
+    translateY,
   }) {
-    let currentAxisInterval = 0;
-    while (currentAxisInterval <= totalYAxisInterval) {
+    const translateRatio = translateY / canvasActualHeight;
+    const girdTotalDiff = gridMax - gridMin;
+    const adjustValue = girdTotalDiff * translateRatio;
+
+    for (
+      let currentAxisInterval = 0;
+      currentAxisInterval <= totalYAxisInterval;
+      currentAxisInterval++
+    ) {
       const gridYPosition =
         canvasActualHeight * (currentAxisInterval / totalYAxisInterval) +
         heightPadding;
@@ -26,7 +35,7 @@ class YAxisDrawer {
         endY: gridYPosition,
         color: "#DBDBDB",
       });
-      const gridValue = gridMax - currentAxisInterval * scale;
+      const gridValue = gridMax - currentAxisInterval * scale + adjustValue;
       const text = `${gridValue.toFixed(2)}`;
       this.CanvasUtilDrawer.drawText({
         text,
@@ -34,7 +43,6 @@ class YAxisDrawer {
         y: gridYPosition,
         textAlign: "right",
       });
-      currentAxisInterval++;
     }
   }
 
@@ -42,16 +50,20 @@ class YAxisDrawer {
     const {
       scale,
       gridMax,
+      gridMin,
       totalYAxisInterval,
       canvasActualHeight,
       heightPadding,
+      translateY,
     } = drawInfo;
     this.drawGrid({
       totalYAxisInterval,
       canvasActualHeight,
       gridMax,
+      gridMin,
       scale,
       heightPadding,
+      translateY,
     });
   }
 }

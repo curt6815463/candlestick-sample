@@ -10,6 +10,7 @@ const CandlesticksChart = ({
   width,
   height,
   translateX,
+  translateY,
 }) => {
   const canvasRef = useRef("");
   const candlesticksRef = useRef("");
@@ -40,6 +41,11 @@ const CandlesticksChart = ({
   }, [translateX]);
 
   useEffect(() => {
+    if (!candlesticksRef.current) return;
+    candlesticksRef.current.updateTranslateY(translateY);
+  }, [translateY]);
+
+  useEffect(() => {
     if (!data) return;
     if (candlesticksRef.current) return;
     const canvas = canvasRef.current;
@@ -54,6 +60,7 @@ const CandlesticksChart = ({
       bullColor,
       bearColor,
       translateX,
+      translateY,
     });
     candlesticksRef.current.draw();
   }, [
@@ -65,6 +72,7 @@ const CandlesticksChart = ({
     width,
     height,
     translateX,
+    translateY,
   ]);
 
   return <canvas ref={canvasRef}></canvas>;

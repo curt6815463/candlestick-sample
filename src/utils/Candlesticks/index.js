@@ -21,6 +21,7 @@ class Candlesticks {
     this.candleDefaultWidth = 16;
     this.candleDefaultXGap = 7;
     this.translateX = options.translateX || 0;
+    this.translateY = options.translateY || 0;
     this.totalYAxisInterval = options.totalYAxisInterval;
     this.startDrawPosition = this.canvas.width * 0.8;
     this.YAxisDrawer = new YAxisDrawer({
@@ -73,6 +74,11 @@ class Candlesticks {
     this.draw();
   }
 
+  updateTranslateY(translateY) {
+    this.translateY = translateY;
+    this.draw();
+  }
+
   arrayOfAllPrices(inChartProperties) {
     return inChartProperties.reduce((result, property) => {
       const { open, high, low, close } = property;
@@ -90,7 +96,13 @@ class Candlesticks {
   }
 
   draw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    const canvasActualHeight = this.canvas.height - this.heightPadding * 2;
+    const canvasActualWidth = this.canvas.width;
+    const translateX = this.translateX;
+    const translateY = this.translateY;
+    const heightPadding = this.heightPadding;
+    const startDrawPosition = this.startDrawPosition;
+
     const candleWidth = this.candleDefaultWidth * this.zoomRatio;
     const candleXGap = this.candleDefaultXGap * this.zoomRatio;
     const totalYAxisInterval = this.totalYAxisInterval;
@@ -106,11 +118,6 @@ class Candlesticks {
     const scale = (max - min) / (totalYAxisInterval - 1);
     const gridMax = max + scale / 2;
     const gridMin = gridMax - scale * totalYAxisInterval;
-    const canvasActualHeight = this.canvas.height - this.heightPadding * 2;
-    const canvasActualWidth = this.canvas.width;
-    const translateX = this.translateX;
-    const heightPadding = this.heightPadding;
-    const startDrawPosition = this.startDrawPosition;
 
     const drawInfo = {
       scale,
@@ -123,9 +130,12 @@ class Candlesticks {
       candleWidth,
       candleXGap,
       translateX,
+      translateY,
       heightPadding,
       startDrawPosition,
     };
+
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.YAxisDrawer.draw(drawInfo);
     this.XAxisDrawer.draw(drawInfo);
     this.ContentDrawer.draw(drawInfo);

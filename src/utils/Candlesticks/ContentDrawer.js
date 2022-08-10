@@ -28,13 +28,14 @@ class ContentDrawer {
     candleWidth,
     candleXGap,
     translateX,
+    translateY,
     heightPadding,
     startDrawPosition,
   }) {
     const girdTotalDiff = gridMax - gridMin;
     properties.forEach((property, index) => {
       this.ctx.save();
-      this.ctx.translate(translateX, 0);
+      this.ctx.translate(translateX, translateY);
       const { open, close, high, low } = property;
       const openPrice = Number.parseFloat(open);
       const closePrice = Number.parseFloat(close);
@@ -97,6 +98,7 @@ class ContentDrawer {
       candleWidth,
       candleXGap,
       translateX,
+      translateY,
       heightPadding,
       startDrawPosition,
     } = drawInfo;
@@ -109,6 +111,7 @@ class ContentDrawer {
       candleWidth,
       candleXGap,
       translateX,
+      translateY,
       heightPadding,
       startDrawPosition,
     });
