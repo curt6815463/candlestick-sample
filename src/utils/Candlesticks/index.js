@@ -15,34 +15,27 @@ class Candlesticks {
         };
       }
     );
+
     this.heightPadding = options.heightPadding;
     this.zoomRatio = options.zoomRatio || 1;
     this.candleDefaultWidth = 16;
     this.candleDefaultXGap = 7;
-
     this.translateX = options.translateX || 0;
-
     this.totalYAxisInterval = options.totalYAxisInterval;
-
     this.startDrawPosition = this.canvas.width * 0.8;
-
     this.YAxisDrawer = new YAxisDrawer({
       canvas: this.canvas,
       ctx: this.ctx,
-      heightPadding: options.heightPadding,
     });
     this.XAxisDrawer = new XAxisDrawer({
       canvas: this.canvas,
       ctx: this.ctx,
-      startDrawPosition: this.startDrawPosition,
     });
     this.ContentDrawer = new ContentDrawer({
       canvas: this.canvas,
       ctx: this.ctx,
-      heightPadding: options.heightPadding,
       bullColor: options.bullColor,
       bearColor: options.bearColor,
-      startDrawPosition: this.startDrawPosition,
     });
   }
 
@@ -116,6 +109,8 @@ class Candlesticks {
     const canvasActualHeight = this.canvas.height - this.heightPadding * 2;
     const canvasActualWidth = this.canvas.width;
     const translateX = this.translateX;
+    const heightPadding = this.heightPadding;
+    const startDrawPosition = this.startDrawPosition;
 
     const drawInfo = {
       scale,
@@ -128,6 +123,8 @@ class Candlesticks {
       candleWidth,
       candleXGap,
       translateX,
+      heightPadding,
+      startDrawPosition,
     };
     this.YAxisDrawer.draw(drawInfo);
     this.XAxisDrawer.draw(drawInfo);

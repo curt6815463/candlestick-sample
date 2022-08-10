@@ -3,8 +3,6 @@ class ContentDrawer {
   constructor(options) {
     this.bullColor = options.bullColor;
     this.bearColor = options.bearColor;
-    this.startDrawPosition = options.startDrawPosition;
-    this.heightPadding = options.heightPadding;
     this.ctx = options.ctx;
     this.CanvasUtilDrawer = new CanvasUtilDrawer({
       ctx: options.ctx,
@@ -30,6 +28,8 @@ class ContentDrawer {
     candleWidth,
     candleXGap,
     translateX,
+    heightPadding,
+    startDrawPosition,
   }) {
     const girdTotalDiff = gridMax - gridMin;
     properties.forEach((property, index) => {
@@ -44,10 +44,10 @@ class ContentDrawer {
       const candleColor = this.getCandleColor({ openPrice, closePrice });
       const rectUpperValue = openPrice > closePrice ? openPrice : closePrice;
       const rectLeftTopX =
-        this.startDrawPosition - index * candleWidth - candleXGap * index;
+        startDrawPosition - index * candleWidth - candleXGap * index;
       const rectLeftTopY =
         canvasActualHeight * ((gridMax - rectUpperValue) / girdTotalDiff) +
-        this.heightPadding;
+        heightPadding;
       const isOpenCloseEqual = openPrice === closePrice;
       const openCloseDiff = Math.abs(openPrice - closePrice);
       const rectHeight = isOpenCloseEqual
@@ -71,10 +71,10 @@ class ContentDrawer {
 
       const wickStartY =
         canvasActualHeight * ((gridMax - highPrice) / girdTotalDiff) +
-        this.heightPadding;
+        heightPadding;
       const wickEndY =
         canvasActualHeight * ((gridMax - lowPrice) / girdTotalDiff) +
-        this.heightPadding;
+        heightPadding;
 
       this.CanvasUtilDrawer.drawLine({
         startX: wickStartX,
@@ -97,6 +97,8 @@ class ContentDrawer {
       candleWidth,
       candleXGap,
       translateX,
+      heightPadding,
+      startDrawPosition,
     } = drawInfo;
     this.drawContent({
       canvasActualHeight,
@@ -107,6 +109,8 @@ class ContentDrawer {
       candleWidth,
       candleXGap,
       translateX,
+      heightPadding,
+      startDrawPosition,
     });
   }
 }

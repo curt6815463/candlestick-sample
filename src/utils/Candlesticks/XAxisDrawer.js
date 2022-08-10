@@ -7,7 +7,6 @@ class XAxisDrawer {
     this.CanvasUtilDrawer = new CanvasUtilDrawer({
       ctx: options.ctx,
     });
-    this.startDrawPosition = options.startDrawPosition;
   }
 
   getDrawInterval({ text, candleWidth, candleXGap }) {
@@ -24,6 +23,7 @@ class XAxisDrawer {
     interval,
     translateX,
     canvasActualWidth,
+    startDrawPosition,
   }) {
     properties.forEach((property, index) => {
       if (index % interval === 0) {
@@ -31,7 +31,7 @@ class XAxisDrawer {
         this.ctx.translate(translateX, 0);
 
         const startX =
-          this.startDrawPosition -
+          startDrawPosition -
           index * candleWidth -
           index * candleXGap +
           candleWidth / 2;
@@ -66,6 +66,7 @@ class XAxisDrawer {
       candleXGap,
       translateX,
       canvasActualWidth,
+      startDrawPosition,
     } = drawInfo;
     const interval = this.getDrawInterval({
       text: properties[0].time,
@@ -79,6 +80,7 @@ class XAxisDrawer {
       interval,
       translateX,
       canvasActualWidth,
+      startDrawPosition,
     });
   }
 }
