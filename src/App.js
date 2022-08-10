@@ -9,6 +9,8 @@ const maxRatio = 1.25;
 
 function App() {
   const [zoomRatio, setZoomRatio] = useState(1);
+  const [translateX, setTranslateX] = useState(0);
+
   useWheelZoom({ setZoomRatio });
 
   const [chartData] = useState(data);
@@ -17,20 +19,31 @@ function App() {
     setZoomRatio(ratio);
   };
 
+  const handleTranslateX = (delta) => {
+    setTranslateX(translateX + delta);
+  };
+
   return (
     <Wrapper className="App">
       <ToolBar>
         <ToolBarTitle>ToolBar</ToolBarTitle>
         <ButtonWrapper>
-          <button onClick={() => handleZoom(0.1)}>zoomIn</button>
+          <button onClick={() => handleZoom(0.1)}>Zoom In</button>
         </ButtonWrapper>
         <ButtonWrapper>
-          <button onClick={() => handleZoom(-0.1)}>zoomOut</button>
+          <button onClick={() => handleZoom(-0.1)}>Zoom out</button>
+        </ButtonWrapper>
+        <ButtonWrapper>
+          <button onClick={() => handleTranslateX(-50)}>Move Left</button>
+        </ButtonWrapper>
+        <ButtonWrapper>
+          <button onClick={() => handleTranslateX(50)}>Move Right</button>
         </ButtonWrapper>
         <span>wheel is available</span>
       </ToolBar>
       <CandlesticksChartWrapper>
         <CandlesticksChart
+          translateX={translateX}
           bullColor={"orange"}
           bearColor={"blue"}
           data={chartData}

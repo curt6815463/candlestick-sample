@@ -19,6 +19,8 @@ class Candlesticks {
     this.candleDefaultWidth = 16;
     this.candleDefaultXGap = 7;
 
+    this.translateX = options.translateX || 0;
+
     this.totalYAxisInterval = options.totalYAxisInterval;
 
     this.startDrawPosition = this.canvas.width * 0.8;
@@ -67,6 +69,11 @@ class Candlesticks {
     this.draw();
   }
 
+  updateTranslateX(translateX) {
+    this.translateX = translateX;
+    this.draw();
+  }
+
   arrayOfAllPrices(inChartProperties) {
     return inChartProperties.reduce((result, property) => {
       const { open, high, low, close } = property;
@@ -101,6 +108,8 @@ class Candlesticks {
     const gridMax = max + scale / 2;
     const gridMin = gridMax - scale * totalYAxisInterval;
     const canvasActualHeight = this.canvas.height - this.heightPadding * 2;
+    const canvasActualWidth = this.canvas.width;
+    const translateX = this.translateX;
 
     const drawInfo = {
       scale,
@@ -108,9 +117,11 @@ class Candlesticks {
       gridMin,
       totalYAxisInterval,
       canvasActualHeight,
+      canvasActualWidth,
       properties,
       candleWidth,
       candleXGap,
+      translateX,
     };
     this.YAxisDrawer.draw(drawInfo);
     this.ContentDrawer.draw(drawInfo);

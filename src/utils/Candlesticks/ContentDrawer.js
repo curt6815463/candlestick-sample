@@ -7,7 +7,7 @@ class ContentDrawer {
     this.bearColor = options.bearColor;
     this.startDrawPosition = options.startDrawPosition;
     this.heightPadding = options.heightPadding;
-
+    this.ctx = options.ctx;
     this.CanvasUtilDrawer = new CanvasUtilDrawer({
       ctx: options.ctx,
     });
@@ -31,10 +31,12 @@ class ContentDrawer {
   drawContent({
     properties,
     canvasActualHeight,
+    canvasActualWidth,
     gridMax,
     gridMin,
     candleWidth,
     candleXGap,
+    translateX,
   }) {
     this.XAxisDrawer.setDrawInterval({
       text: properties[0].time,
@@ -43,6 +45,8 @@ class ContentDrawer {
     });
     const girdTotalDiff = gridMax - gridMin;
     properties.forEach((property, index) => {
+      this.ctx.save();
+      this.ctx.translate(translateX, 0);
       const { open, close, high, low } = property;
       const openPrice = Number.parseFloat(open);
       const closePrice = Number.parseFloat(close);
@@ -62,6 +66,10 @@ class ContentDrawer {
         ? 1
         : canvasActualHeight * (openCloseDiff / girdTotalDiff);
 
+      if (translateX + rectLeftTopX + candleWidth + 40 > canvasActualWidth) {
+        this.ctx.restore();
+        return;
+      }
       this.CanvasUtilDrawer.drawRect({
         leftTopX: rectLeftTopX,
         leftTopY: rectLeftTopY,
@@ -93,25 +101,30 @@ class ContentDrawer {
         time: property.time,
         index,
       });
+      this.ctx.restore();
     });
   }
 
   draw(drawInfo) {
     const {
       canvasActualHeight,
+      canvasActualWidth,
       gridMax,
       gridMin,
       properties,
       candleWidth,
       candleXGap,
+      translateX,
     } = drawInfo;
     this.drawContent({
       canvasActualHeight,
+      canvasActualWidth,
       gridMax,
       gridMin,
       properties,
       candleWidth,
       candleXGap,
+      translateX,
     });
   }
 }
