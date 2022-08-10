@@ -40,6 +40,33 @@ class Candlesticks {
     });
   }
 
+  updateSettings({
+    data,
+    zoomRatio,
+    totalYAxisInterval,
+    bullColor,
+    bearColor,
+    translateX,
+    translateY,
+  }) {
+    this.timeSeries = data;
+    this.properties = Object.entries(this.timeSeries).map(
+      ([time, property]) => {
+        return {
+          time,
+          ...property,
+        };
+      }
+    );
+    this.zoomRatio = Math.max(zoomRatio, 0.1);
+    this.totalYAxisInterval = totalYAxisInterval;
+    this.bullColor = bullColor;
+    this.bearColor = bearColor;
+    this.translateX = translateX;
+    this.translateY = translateY;
+    this.draw();
+  }
+
   updateData(data) {
     this.timeSeries = data;
     this.properties = Object.entries(this.timeSeries).map(

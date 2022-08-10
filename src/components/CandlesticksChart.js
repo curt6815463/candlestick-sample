@@ -17,33 +17,24 @@ const CandlesticksChart = ({
 
   useEffect(() => {
     if (!candlesticksRef.current) return;
-    candlesticksRef.current.updateData(data);
-  }, [data]);
-
-  useEffect(() => {
-    if (!candlesticksRef.current) return;
-    candlesticksRef.current.updateZoomRatio(zoomRatio);
-  }, [zoomRatio]);
-
-  useEffect(() => {
-    if (!candlesticksRef.current) return;
-    candlesticksRef.current.updateTotalYAxisInterval(totalYAxisInterval);
-  }, [totalYAxisInterval]);
-
-  useEffect(() => {
-    if (!candlesticksRef.current) return;
-    candlesticksRef.current.updateCandleColor({ bullColor, bearColor });
-  }, [bullColor, bearColor]);
-
-  useEffect(() => {
-    if (!candlesticksRef.current) return;
-    candlesticksRef.current.updateTranslateX(translateX);
-  }, [translateX]);
-
-  useEffect(() => {
-    if (!candlesticksRef.current) return;
-    candlesticksRef.current.updateTranslateY(translateY);
-  }, [translateY]);
+    candlesticksRef.current.updateSettings({
+      data,
+      zoomRatio,
+      totalYAxisInterval,
+      bullColor,
+      bearColor,
+      translateX,
+      translateY,
+    });
+  }, [
+    data,
+    zoomRatio,
+    totalYAxisInterval,
+    bullColor,
+    bearColor,
+    translateX,
+    translateY,
+  ]);
 
   useEffect(() => {
     if (!data) return;
