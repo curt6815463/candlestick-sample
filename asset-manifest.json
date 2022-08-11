@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/candlestick-sample/static/js/main.e9f95b47.js",
+    "main.js": "/candlestick-sample/static/js/main.15ab143b.js",
     "static/js/787.8470d0fb.chunk.js": "/candlestick-sample/static/js/787.8470d0fb.chunk.js",
     "index.html": "/candlestick-sample/index.html",
-    "main.e9f95b47.js.map": "/candlestick-sample/static/js/main.e9f95b47.js.map",
+    "main.15ab143b.js.map": "/candlestick-sample/static/js/main.15ab143b.js.map",
     "787.8470d0fb.chunk.js.map": "/candlestick-sample/static/js/787.8470d0fb.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.e9f95b47.js"
+    "static/js/main.15ab143b.js"
   ]
 }
